@@ -1,83 +1,37 @@
-# Shower
-Сross-browser presentation template.
+# Сross-browser presentation template
 
-* Open [pepelsbey.github.com/shower/en.htm](http://pepelsbey.github.com/shower/en.htm)
-* Click any slide to enter presentation mode
-* Use arrow keys to navigate
+## Changelog:
+* Slide Show feature
+* Inner Navigation reset
+* Few other minor fixes (e.g. black screen on pressing `Enter` on start, node.classList.add replaced with node.className which wasn't working in Safari and probably IE8)
+
+## Slide Show
+It requires additional attribute slideshow-seconds="numeric value". 
+It starts/ stops/ resumes by pressing `F5` at any time during the presentation. 
+A slide plays for its specified time interval in seconds mentioned in slideshow-seconds="numeric value" attribute, before moving to the next slide. 
+It stops when interacting through `Space bar`, `Arrow keys` and `Esc` and resumes again by pressing `F5`.
+It pauses at slides which don't have `slideshow-seconds` attribute. You can continue to move on manually from there on using `space bar` or `arrow keys` and at any time can resume the slideshow by pressing `F5`.
+
+## Inner Navigation
+Inner Navigation problem was when coming back to a slide with Inner Navigation, it doesn't go back to original state and play all over again (i.e. with initial elements active and remaining inactive). What I changed is that when control moves to the next slide, previous slide is reset to original state (i.e. initial items active and remainings inactive). So when you play this slide again, it plays starting from initial state and then through the Inner Navigation.
+
+## Usage
+* Open [habibgul.github.com/Shower-Presentation-Template/index.html](http://habibgul.github.com/Shower-Presentation-Template/index.html)
+* Hit `Enter` or click any slide to enter presentation mode
+* Use `Arrow keys` or `Space bar` to navigate
 * Press `Esc` to exit presentation mode
-
-Or use just a keyboard to navigate:
-
-* Press right arrow key to select first slide
-* Press `Enter` to enter presentation mode
-* Press `Esc` to exit presentation mode
-
-Follow [shower_me](http://twitter.com/shower_me/) on Twitter for updates.
+* Press `Home` to go to first slide
+* Press `End` to go to last slide
+* Slideshow starts/ stops/ resumes by pressing `F5`
+* Slideshow can be stopped with manual interaction i.e. by pressing `Arrow keys`, `Space bar`, or `Esc` keys
 
 ## Supported Browsers
 
-* Desktop platforms: Chrome, Firefox, Opera, Safari
+* Desktop platforms: Chrome, Firefox, Opera, Safari. Only latest stable versions of mentioned browsers are supported.
 
-Only latest stable versions of mentioned browsers are supported.
 
-## Planned Support
+Please address bugs and your suggestions to [Issues](http://github.com/habibgul/Shower-Presentation-Template/issues).
 
-* Desktop platforms: IE10
-* Mobile platforms: Mobile Safari, Opera Mobile
+Licensed under [MIT License](http://en.wikipedia.org/wiki/MIT_License), see [license page](https://github.com/pepelsbey/shower/wiki/License) for details.
 
-Please address bugs and your suggestions to [Issues](http://github.com/pepelsbey/shower/issues).
-
-## Usage examples
-
-* [CSS Management](http://pepelsbey.net/pres/css-management/)
-* [Dynamic Graphics](http://pepelsbey.net/pres/dynamic-graphics/)
-* [Sense Coding](http://pepelsbey.net/pres/sense-coding/)
-* [Special Effects Tea](http://pepelsbey.net/pres/special-effects-tea/)
-* [Web In Curves](http://pepelsbey.net/pres/web-in-curves/)
-* [Play Framework](http://spinscale.github.com/play-advanced-concepts.html)
-* [Flash -> HTML5](http://batsuev.com/bif2011/)
-
-Licensed under [MIT License](http://en.wikipedia.org/wiki/MIT_License), see [license page](shower/wiki/License-En) for details.
-
----
-
-# Shower
-Кроссбраузерный шаблон для презентаций
-
-* Откройте [pepelsbey.github.com/shower/ru.htm](http://pepelsbey.github.com/shower/ru.htm)
-* Кликните по любому слайду для перехода в режим презентации
-* Используйте клавиши со стрелками для навигации
-* Нажмите `Esc` для выхода из режима презентации
-
-Или используте для навигации клавиатуру:
-
-* Нажмите стрелку вправо для выбора первого слайда
-* Нажмите `Enter` для входа в режим презентации
-* Нажмите `Esc` для выхода из режима презентации
-
-Читайте новости [shower_me](http://twitter.com/shower_me/) в Твиттере.
-
-## Поддерживаемые браузеры
-
-* Десктопные: Chrome, Firefox, Opera, Safari
-
-Поддеживаются только последние стабильные версии указанных браузеров.
-
-## Планируемая поддержка
-
-* Десктопные: IE10
-* Мобильные: Mobile Safari, Opera Mobile
-
-Сообщения об ошибках и пожелания оставляйте в разделе [Issues](http://github.com/pepelsbey/shower/issues).
-
-## Примеры использования
-
-* [CSS-менеджмент](http://pepelsbey.net/pres/css-management/)
-* [Динамическая графика](http://pepelsbey.net/pres/dynamic-graphics/)
-* [Вёрстка со смыслом](http://pepelsbey.net/pres/sense-coding/)
-* [Чай со спецэффектами](http://pepelsbey.net/pres/special-effects-tea/)
-* [Веб в кривых](http://pepelsbey.net/pres/web-in-curves/)
-* [Play Framework](http://spinscale.github.com/play-advanced-concepts.html)
-* [Flash -> HTML5](http://batsuev.com/bif2011/)
-
-Лицензировано под [лицензией MIT](http://ru.wikipedia.org/wiki/Лицензия_MIT), читайте подробнее [на странице лицензии](shower/wiki/License-Ru).
+Initially developed by Vadim Makeev, Opera Software and hosted at [https://github.com/pepelsbey/shower/] (https://github.com/pepelsbey/shower/)

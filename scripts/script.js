@@ -1,3 +1,4 @@
+var  slideHash, duration=0, interval, cleanNodes, autoplay=false;
 (function () {
 	var url = window.location,
 		body = document.body,
@@ -87,17 +88,24 @@
 	}
 
 	function goToSlide(slideNumber) {
+		
 		url.hash = getSlideHash(slideNumber);
 
 		if (!isListMode()) {
 			updateProgress(slideNumber);
+			if(autoplay){
+				slideShow(slideNumber);
+			}else{
+				clearInterval(interval);
+			}
+			clearNodes(slideNumber - 1);
 		}
 	}
 
 	function getContainingSlideId(el) {
 		var node = el;
 		while ('BODY' !== node.nodeName && 'HTML' !== node.nodeName) {
-			if (node.classList.contains('slide')) {
+			if (-1 !== node.className.indexOf('slide')) {
 				return node.id;
 			} else {
 				node = node.parentNode;
@@ -132,12 +140,44 @@
 			node = activeNodes[activeNodes.length - 1].nextElementSibling;
 
 		if (null !== node) {
-			node.classList.add('active');
+			node.className = 'active clean';
 			return activeNodes.length + 1;
 		} else {
 			return -1;
 		}
 	}
+
+// Starts slide show
+function slideShow(currentSlideNumber){
+	slideHash = getSlideHash(currentSlideNumber);
+	duration = document.getElementById(slideHash.replace("#","")).getAttribute('slideshow-seconds');
+	if(duration > 0 && autoplay == true){
+	clearInterval(interval);
+	interval = setInterval(function(){
+		if (!slideList[currentSlideNumber].hasInnerNavigation || -1 === increaseInnerNavigation(currentSlideNumber)) {
+			currentSlideNumber = currentSlideNumber + 1;
+			if(currentSlideNumber == slideList.length){
+				currentSlideNumber = 0;
+			}
+			goToSlide(currentSlideNumber);
+			}
+		}, duration * 1000);
+	}else{
+		clearInterval(interval);
+	}
+}
+
+// Clear nodes with inner navigation
+function clearNodes(currentSlideNumber){
+	if (!slideList[currentSlideNumber].hasInnerNavigation || -1 === increaseInnerNavigation(currentSlideNumber)){
+	cleanNodes = document.getElementsByClassName('clean');
+		if (cleanNodes.length > 0){
+			for (var k in cleanNodes){
+			  cleanNodes[k].removeAttribute('class');
+			}
+		}	
+	}
+}
 
 	// Event handlers
 
@@ -176,21 +216,24 @@
 
 		switch (e.which) {
 			case 116: // F5
+			e.preventDefault();
+			autoplay = true;
+			slideShow(currentSlideNumber);
 			case 13: // Enter
 				if (isListMode()) {
 					e.preventDefault();
 
 					history.pushState(null, null, url.pathname + '?full' + getSlideHash(currentSlideNumber));
 					enterSlideMode();
-
-					updateProgress(currentSlideNumber);
+					goToSlide((currentSlideNumber == -1) ? 0 : currentSlideNumber);
 				}
 			break;
 
 			case 27: // Esc
 				if (!isListMode()) {
 					e.preventDefault();
-
+					autoplay = false;
+					clearInterval(interval);
 					history.pushState(null, null, url.pathname + getSlideHash(currentSlideNumber));
 					enterListMode();
 					scrollToCurrentSlide();
@@ -203,9 +246,17 @@
 			case 72: // h
 			case 75: // k
 				e.preventDefault();
-
-				currentSlideNumber--;
-				goToSlide(currentSlideNumber);
+				autoplay = false;
+				clearInterval(interval);
+				// Only go to prev slide if current slide have no inner
+				// navigation or inner navigation is fully shown
+				if (
+					!slideList[currentSlideNumber].hasInnerNavigation ||
+					-1 === increaseInnerNavigation(currentSlideNumber)
+				) {
+					currentSlideNumber--;
+					goToSlide(currentSlideNumber);
+				}
 			break;
 
 			case 34: // PgDown
@@ -214,7 +265,8 @@
 			case 76: // l
 			case 74: // j
 				e.preventDefault();
-
+				autoplay = false;
+				clearInterval(interval);
 				// Only go to next slide if current slide have no inner
 				// navigation or inner navigation is fully shown
 				if (
@@ -243,9 +295,15 @@
 			case 9: // Tab = +1; Shift + Tab = -1
 			case 32: // Space = +1; Shift + Space = -1
 				e.preventDefault();
-
-				currentSlideNumber += e.shiftKey ? -1 : 1;
-				goToSlide(currentSlideNumber);
+				autoplay = false;
+				clearInterval(interval);
+				if (
+					!slideList[currentSlideNumber].hasInnerNavigation ||
+					-1 === increaseInnerNavigation(currentSlideNumber)
+				) {
+					currentSlideNumber++;
+					goToSlide(currentSlideNumber);
+				}
 			break;
 
 			default:
