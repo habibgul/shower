@@ -16,7 +16,7 @@ It pauses at slides which don't have `slideshow-seconds` attribute. You can cont
 Inner Navigation problem was when coming back to a slide with Inner Navigation, it doesn't go back to original state and play all over again (i.e. with initial elements active and remaining inactive). What I changed is that when control moves to the next slide, previous slide is reset to original state (i.e. initial items active and remainings inactive). So when you play this slide again, it plays starting from initial state and then through the Inner Navigation.
 
 ## Usage
-* Open [habibgul.github.com/Shower-Presentation-Template/index.html](http://habibgul.github.com/Shower-Presentation-Template/index.html)
+* Demo [habibgul.github.com/shower](http://habibgul.github.com/shower)
 * Hit `Enter` or click any slide to enter presentation mode
 * Use `Arrow keys` or `Space bar` to navigate
 * Press `Esc` to exit presentation mode
